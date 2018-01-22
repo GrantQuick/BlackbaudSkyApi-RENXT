@@ -27,4 +27,4 @@ Follow the instructions at https://apidocs.sky.blackbaud.com/docs/createapp/ to 
 Only a small number of endpoints have currently been implemented, initilly focusing on those which support returning a list of data for all constituents.
 
 ## Known Issues
-As yet, here is no handling of quotas or rate limiting. It is possible that these issues may be encountered during calls to larger datasets. The connector has been tested with a database of around 100,000 records without hitting any rate limiting. The data load for the constituents endpoint on a dataset of this size takes between 5-10 minutes.
+As yet, there is no handling of quotas or rate limiting. It is possible that these issues may be encountered during calls to larger datasets. The connector has been tested with a database of around 100,000 records without hitting any rate limiting. The data load for the constituents endpoint on a dataset of this size takes between 5-10 minutes.
