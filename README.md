@@ -4,7 +4,7 @@ A Power BI custom data connector for the Blackbaud SKY API
 ## Getting Started
 These instructions will describe how to configure the SKY API connector in order to connect to your organisation's data. See Microsoft's guide to installing and using custom data connectors in Power BI here: https://github.com/Microsoft/DataConnectors.
 
-A Blackbaud developer account is also required in order to create an application. Once an application has been created, you will need the client_id of the application, the client_secret of your application, and your developer account's api_subscription_key.
+A Blackbaud developer account is required in order to create an application. Once an application has been created, you will need the client_id of the application, the client_secret of your application, and your developer account's api_subscription_key.
 
 ### Setting up a Blackbaud developer account
 Follow the instructions at https://apidocs.sky.blackbaud.com/docs/getting-started/ to create a developer account and acquire your api_subscription key.
@@ -22,3 +22,6 @@ Follow the instructions at https://apidocs.sky.blackbaud.com/docs/createapp/ to 
 8. Restart Power BI Desktop
 9. In Power BI Desktop, click **Get Data > Other > Blackbaud SkyAPi (Beta)**
 10. The first time you use the connector you will need to log in using your Blackbaud account and authorise the app to work with your data.
+
+## Additional Information
+Only a small number of endpoints have currently been implemented, initilly focusing on those which support returning a list of data for all constituents.
