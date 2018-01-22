@@ -12,5 +12,5 @@ These instructions will describe how to configure the SKY API connector in order
 5. Rename SkyApi.zip back to SkyApi.mez.
 4. Enable the **Custom data connectors** preview feature in Power BI Desktop (under *File | Options and settings | Custom data connectors*)
 8. Restart Power BI Desktop
-9. In Power BI Desktop, click Get Data > Other > Blackbaud SkyAPi (Beta)
+9. In Power BI Desktop, click **Get Data > Other > Blackbaud SkyAPi (Beta)**
 10. The first time you use the connector you will need to log in using your Blackbaud account and authorise the app to work with your data.
