@@ -1,4 +1,4 @@
-G# BlackbaudSkyApi
+## BlackbaudSkyApi
 A Power BI custom data connector for the Blackbaud SKY API
 
 ## Getting Started
