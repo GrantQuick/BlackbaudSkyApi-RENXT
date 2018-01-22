@@ -7,10 +7,10 @@ These instructions will describe how to configure the SKY API connector in order
 A Blackbaud developer account is also required in order to create an application. Once an application has been created, you will need the client_id of the application, the client_secret of your application, and your developer account's api_subscription_key.
 
 ### Setting up a Blackbaud developer account
-Follow the instructions at https://apidocs.sky.blackbaud.com/docs/getting-started/ to create a developer account and acquire your api_subscription key, which is required by the connector.
+Follow the instructions at https://apidocs.sky.blackbaud.com/docs/getting-started/ to create a developer account and acquire your api_subscription key.
 
 ### Creating an app
-Follow the instructions at https://apidocs.sky.blackbaud.com/docs/createapp/ to register and activate your app. Registering your app will generate a client_id and client_secret for the app, which will be required by the connector.
+Follow the instructions at https://apidocs.sky.blackbaud.com/docs/createapp/ to register and activate your app. Registering your app will generate a client_id and client_secret for the app.
 
 ### Installing the connector
 1. If one does not already exist, create a `[My Documents]\Microsoft Power BI Desktop\Custom Connectors` directory
