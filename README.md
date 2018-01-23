@@ -1,5 +1,6 @@
 ## BlackbaudSkyApi
 A Power BI custom data connector for the Blackbaud SKY API
+![PBIGetData](blobs/getdata.png "SKY API in Get Data")
 
 ## Getting Started
 These instructions will describe how to configure the SKY API connector in order to connect to your organisation's data. See Microsoft's guide to installing and using custom data connectors in Power BI here: https://github.com/Microsoft/DataConnectors.
