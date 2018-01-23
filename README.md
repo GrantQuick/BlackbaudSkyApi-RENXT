@@ -10,7 +10,7 @@ A Blackbaud developer account is required in order to create an application. Onc
 Follow the instructions at https://apidocs.sky.blackbaud.com/docs/getting-started/ to create a developer account and acquire your api_subscription key.
 
 ### Creating an app
-Follow the instructions at https://apidocs.sky.blackbaud.com/docs/createapp/ to register and activate your app. Registering your app will generate a client_id and client_secret for the app.
+Follow the instructions at https://apidocs.sky.blackbaud.com/docs/createapp/ to register and activate your app. Registering your app will generate a client_id and client_secret for the app. Ensure that the Redirect URL for the app you create is set to http://localhost/5000
 
 ### Installing the connector
 1. If one does not already exist, create a `[My Documents]\Microsoft Power BI Desktop\Custom Connectors` directory
