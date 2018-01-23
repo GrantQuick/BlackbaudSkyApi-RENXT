@@ -37,7 +37,7 @@ Additional endpoints will be added in time. Currently the connector supports:
 * Gift list
 
 ## Additional Information
-The connector will only generate a barebones data model. List or record type data fields will have to be expanded when designing your own data model. For example, when connecting to the Gifts endpoint, in Power BI you will need to click **Edit Queries** in order to exapand and view the gift amounts.
+The connector will only generate a barebones data model. List or record type data fields will have to be expanded when designing your own data model. For example, when connecting to the Gifts endpoint, in Power BI you will need to click **Edit Queries** in order to expand and view the gift amounts.
 
 ## Known Issues
 As yet, there is no handling of quotas or rate limiting. It is possible that these issues may be encountered during calls to larger datasets. The connector has been tested with a database of around 100,000 records without hitting any rate limiting. The data load for the constituents endpoint on a dataset of this size takes between 5-10 minutes.
