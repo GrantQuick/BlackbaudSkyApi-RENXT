@@ -23,8 +23,21 @@ Follow the instructions at https://apidocs.sky.blackbaud.com/docs/createapp/ to 
 9. In Power BI Desktop, click **Get Data > Other > Blackbaud SkyAPi (Beta)**
 10. The first time you use the connector you will need to log in using your Blackbaud account and authorise the app to work with your data.
 
+## Supported Endpoints
+Additional endpoints will be added in time. Currently the connector supports:
+* Constituent list
+* Phone list
+* Email Address list
+* Address list
+* Education list
+* Constituent Code list
+* Online Presence list
+* Relationship list
+* Constituent Custom Field list
+* Gift list
+
 ## Additional Information
-Only a small number of endpoints have currently been implemented, initilly focusing on those which support returning a list of data for all constituents.
+The connector will only generate a barebones data model. List or record type data fields will have to be expanded when designing your own data model. For example, when connecting to the Gifts endpoint, in Power BI you will need to click **Edit Queries** in order to exapand and view the gift amounts.
 
 ## Known Issues
 As yet, there is no handling of quotas or rate limiting. It is possible that these issues may be encountered during calls to larger datasets. The connector has been tested with a database of around 100,000 records without hitting any rate limiting. The data load for the constituents endpoint on a dataset of this size takes between 5-10 minutes.
