@@ -223,6 +223,28 @@ ConstituentCustomFielsListType = type table [
     date_modified = nullable datetimezone
 ];
 
+// Gift List Endpoint
+GiftListType = type table [
+    id = nullable text,
+    lookup_id = nullable text,
+    date = nullable datetimezone,
+    amount = ValueType,
+    balance = ValueType,
+    acknowledgements = {StatusType},
+    receipts = {ReceiptType},
+    #"type" = nullable text,
+    constituent_id = nullable text,
+    is_anonymous = nullable logical,
+    gift_splits = {GiftSplitType},
+    fundraisers = {FundRaiserType},
+    payments = {PaymentType},
+    post_status = nullable text,
+    post_date = nullable datetimezone,
+    gift_status = nullable text,
+    batch_number = nullable text,
+    date_added = nullable datetimezone,
+    date_modified = nullable datetimezone
+];
 
 // ----------------------------------------
 // Remaining structured types
@@ -286,28 +308,74 @@ SpouseType = type [
     first = nullable text
 ];
 
+ValueType = type [
+    value = nullable number
+];
 
-SchemaTable = #table({"Entity", "Type", "Endpoint"}, {
-        {"constituents", ConstituentsListType, "constituent/v1/constituents?"},
-        {"phones", PhoneListType, "constituent/v1/phones?"},
-        {"emails", EmailListType, "constituent/v1/emailaddresses?"},
-        {"addresses", AddressListType, "constituent/v1/addresses?"},
-        {"education", EducationListType, "constituent/v1/educations?"},
-        {"constituent_codes", ConstituentCodeListType, "constituent/v1/constituents/constituentcodes?"},
-        {"online_presence", OnlinePresenceListType, "constituent/v1/onlinepresences?"},
-        {"relationships", RelationshipListType, "constituent/v1/relationships?"},
-        {"constituent_custom_fields", ConstituentCustomFielsListType, "constituent/v1/constituents/customfields?"}
+StatusType = type [
+    status = nullable text
+];
+
+ReceiptType = type [
+    status = nullable text,
+    date = nullable datetime,
+    amount = ValueType
+];
+
+GiftSplitType = type [
+    fund_id = nullable text,
+    amount = ValueType,
+    campaign_id = nullable text,
+    appeal_id = nullable text
+];
+
+FundRaiserType = type [
+    amount = ValueType,
+    constituent_id = nullable text
+];
+
+PaymentType = type [
+    payment_method = nullable text
+];
+
+
+SchemaTable = #table({"Entity", "Type", "Endpoint", "Branch"}, {
+        {"constituents", ConstituentsListType, "constituent/v1/constituents?", "Constituents"},
+        {"phones", PhoneListType, "constituent/v1/phones?", "Constituents"},
+        {"emails", EmailListType, "constituent/v1/emailaddresses?", "Constituents"},
+        {"addresses", AddressListType, "constituent/v1/addresses?", "Constituents"},
+        {"education", EducationListType, "constituent/v1/educations?", "Constituents"},
+        {"constituent_codes", ConstituentCodeListType, "constituent/v1/constituents/constituentcodes?", "Constituents"},
+        {"online_presence", OnlinePresenceListType, "constituent/v1/onlinepresences?", "Constituents"},
+        {"relationships", RelationshipListType, "constituent/v1/relationships?", "Constituents"},
+        {"constituent_custom_fields", ConstituentCustomFielsListType, "constituent/v1/constituents/customfields?", "Constituents"},
+        {"gifts", GiftListType, "gift/v1/gifts", "Gifts"}
 });
         
 GetSchemaForEntity = (entity as text) as type => try SchemaTable{[Entity=entity]}[Type] otherwise error "Couldn't find entity: '" & entity &"'";
 
 [DataSource.Kind="SkyApi", Publish="SkyApi.Publish"]
-shared SkyApi.Contents = () => SkyApiNavTable(BaseUrl) as table;
+shared SkyApi.Contents = () => NavigationTable.Nested() as table;
 
-SkyApiNavTable = (url as text) as table =>
+
+// Create a navigation table grouping for the each endpoint parent reference
+shared NavigationTable.Nested = () as table =>
     let
-        // Use our schema table as the source of top level items in the navigation tree
-        entities = Table.SelectColumns(SchemaTable, {"Entity", "Endpoint"}),
+        objects = #table(
+            {"Name",        "Key",  "Data",                                 "ItemKind", "ItemName", "IsLeaf"},{
+            {"Constituents","n1",   SkyApiNavTable(BaseUrl,"Constituents"), "Table",    "Table",    false},
+            {"Gifts",       "n2",   SkyApiNavTable(BaseUrl,"Gifts"),        "Table",    "Table",    false}
+        }),
+        NavTable = Table.ToNavigationTable(objects, {"Key"}, "Name", "Data", "ItemKind", "ItemName", "IsLeaf")
+    in
+        NavTable;
+
+SkyApiNavTable = (url as text, branch as text) as table =>
+    let
+        // Group endpoints into their respective parent references according to the schematable branch
+        test = Table.SelectRows(SchemaTable, each [Branch] = branch) as table,
+        //entities = Table.SelectColumns(SchemaTable, {"Entity", "Endpoint"}),
+        entities = Table.SelectColumns(test, {"Entity", "Endpoint"}),
         rename = Table.RenameColumns(entities, {{"Entity", "Name"}}),
         // Add Data as a calculated column
         withData = Table.AddColumn(rename, "Data", each GetEntity(Uri.Combine(url, [Endpoint]),[Name]), type table),
@@ -375,6 +443,7 @@ GetAllPagesByNextLink = (url as text, optional schema as type) as table =>
 // In this implementation, 'response' will be the parsed body of the response after the call to Json.Document.
 // We look for the 'next_link' field and simply return null if it doesn't exist.
 GetNextLink = (response) as nullable text => Record.FieldOrDefault(response, "next_link");
+//GetNextLink = (response) as nullable text => Record.FieldOrDefault(response, "next_link_breakThis");
 
 // 
 // Load common library functions
