@@ -57,31 +57,31 @@ BaseUrl = "https://api.sky.blackbaud.com/";
 
 // Constituent List Endpoint
 ConstituentsListType = type table [
-    id = text,
-    #"type" = text,
-    lookup_id = text,
-    inactive = logical,
-    name = text,
-    last = text,
-    first = text,
-    middle = text,
-    preferred_name = text,
-    former_name = text,
-    suffix = text,
-    suffix_2 = text,
-    title = text,
-    title_2 = text,
-    gender = text,
-    birthdate = DateType,
-    age = number,
-    deceased = logical,
-    deceased_date = DateType,
-    address = AddressType,
-    email = EmailType,
-    phone = PhoneType,
-    online_presence = OnlinePresenceType,
-    marital_status = text,
-    spouse = record,
+    id = nullable text,
+    #"type" = nullable text,
+    lookup_id = nullable text,
+    inactive = nullable logical,
+    name = nullable text,
+    last = nullable text,
+    first = nullable text,
+    middle = nullable text,
+    preferred_name = nullable text,
+    former_name = nullable text,
+    suffix = nullable text,
+    suffix_2 = nullable text,
+    title = nullable text,
+    title_2 = nullable text,
+    gender = nullable text,
+    birthdate = nullable DateType,
+    age = nullable number,
+    deceased = nullable logical,
+    deceased_date = nullable DateType,
+    address = nullable AddressType,
+    email = nullable EmailType,
+    phone = nullable PhoneType,
+    online_presence = nullable OnlinePresenceType,
+    marital_status = nullable text,
+    spouse = nullable record,
     date_added = nullable datetimezone,
     date_modified = nullable datetimezone,
     gives_anonymously = nullable logical
@@ -97,8 +97,8 @@ AddressListType = type table [
     inactive = nullable logical,
     start = nullable text,
     end = nullable text,
-    seasonal_start = SeasonDateType,
-    seasonal_end = SeasonDateType,
+    seasonal_start = nullable SeasonDateType,
+    seasonal_end = nullable SeasonDateType,
     do_not_mail = nullable logical,
     address_lines = nullable text,
     city = nullable text,
@@ -152,7 +152,7 @@ EducationListType = type table [
     primary = nullable logical,
     majors = {nullable text},
     minors = {nullable text},
-    gpa = number,
+    gpa = nullable number,
     campus = nullable text,
     known_name = nullable text,
     social_organization = nullable text,
@@ -170,8 +170,8 @@ ConstituentCodeListType = type table [
     id = nullable text,
     constituent_id = nullable text,
     description = nullable text,
-    start = DateType,
-    end = DateType,
+    start = nullable DateType,
+    end = nullable DateType,
     inactive = nullable logical,
     date_added = nullable datetimezone,
     date_modified = nullable datetimezone
@@ -196,8 +196,8 @@ RelationshipListType = type table [
     relation_id = nullable text,
     name = nullable text,
     #"type" = nullable text,
-    start = DateType,
-    end = DateType,
+    start = nullable DateType,
+    end = nullable DateType,
     reciprocal_type = nullable text,
     reciprocal_relationship_id = nullable text,
     is_spouse = nullable logical,
@@ -211,7 +211,7 @@ RelationshipListType = type table [
 ];
 
 // Constituent Custom Field List Endpoint
-ConstituentCustomFielsListType = type table [
+ConstituentCustomFieldListType = type table [
     id = nullable text,
     parent_id = nullable text,
     category = nullable text,
@@ -228,20 +228,95 @@ GiftListType = type table [
     id = nullable text,
     lookup_id = nullable text,
     date = nullable datetimezone,
-    amount = ValueType,
-    balance = ValueType,
-    acknowledgements = {StatusType},
-    receipts = {ReceiptType},
+    amount = nullable ValueType,
+    balance = nullable ValueType,
+    acknowledgements = {nullable StatusType},
+    receipts = {nullable ReceiptType},
     #"type" = nullable text,
     constituent_id = nullable text,
     is_anonymous = nullable logical,
-    gift_splits = {GiftSplitType},
-    fundraisers = {FundRaiserType},
-    payments = {PaymentType},
+    gift_splits = {nullable GiftSplitType},
+    fundraisers = {nullable FundRaiserType},
+    payments = {nullable PaymentType},
     post_status = nullable text,
     post_date = nullable datetimezone,
     gift_status = nullable text,
     batch_number = nullable text,
+    date_added = nullable datetimezone,
+    date_modified = nullable datetimezone
+];
+
+// Gift Custom Field List Endpoint
+GiftCustomFieldListType = type table [
+    id = nullable text,
+    parent_id = nullable text,
+    category = nullable text,
+    #"type" = nullable text,
+    date = nullable datetime,
+    comment = nullable text,
+    value = nullable text,
+    date_added = nullable datetimezone,
+    date_modified = nullable datetimezone
+];
+
+// Appeal List Endpoint
+AppealListType = type table [
+    id = nullable text,
+    description = nullable text,
+    lookup_id = nullable text,
+    start_date = nullable datetime,
+    end_date = nullable datetime,
+    inactive = nullable logical,
+    goal = nullable ValueType,
+    date_added = nullable datetimezone,
+    date_modified = nullable datetimezone
+];
+
+// Campaign List Endpoint
+CampaignListType = type table [
+    id = nullable text,
+    description = nullable text,
+    lookup_id = nullable text,
+    start_date = nullable datetime,
+    end_date = nullable datetime,
+    inactive = nullable logical,
+    goal = nullable ValueType,
+    date_added = nullable datetimezone,
+    date_modified = nullable datetimezone
+];
+
+// Fund List Endpoint
+FundListType = type table [
+    id = nullable text,
+    description = nullable text,
+    lookup_id = nullable text,
+    start_date = nullable datetime,
+    end_date = nullable datetime,
+    inactive = nullable logical,
+    goal = nullable ValueType,
+    date_added = nullable datetimezone,
+    date_modified = nullable datetimezone
+];
+
+// Opportunity List Endpoint
+OpportunityListType = type table [
+    id = nullable text,
+    constituent_id = nullable text,
+    name = nullable text,
+    inactive = nullable logical,
+    purpose = nullable text,
+    status = nullable text,
+    deadline = nullable datetime,
+    ask_date = nullable datetime,
+    ask_amount = nullable ValueType,
+    expected_date = nullable datetime,
+    expected_amount = nullable ValueType,
+    funded_date = nullable datetime,
+    funded_amount = nullable ValueType,
+    campaign_id = nullable text,
+    fund_id = nullable text,
+    fundraisers = {nullable FundRaiserType},
+    linked_gifts = {nullable text},
     date_added = nullable datetimezone,
     date_modified = nullable datetimezone
 ];
@@ -319,18 +394,18 @@ StatusType = type [
 ReceiptType = type [
     status = nullable text,
     date = nullable datetime,
-    amount = ValueType
+    amount = nullable ValueType
 ];
 
 GiftSplitType = type [
     fund_id = nullable text,
-    amount = ValueType,
+    amount = nullable ValueType,
     campaign_id = nullable text,
     appeal_id = nullable text
 ];
 
 FundRaiserType = type [
-    amount = ValueType,
+    amount = nullable ValueType,
     constituent_id = nullable text
 ];
 
@@ -348,8 +423,13 @@ SchemaTable = #table({"Entity", "Type", "Endpoint", "Branch"}, {
         {"constituent_codes", ConstituentCodeListType, "constituent/v1/constituents/constituentcodes?", "Constituents"},
         {"online_presence", OnlinePresenceListType, "constituent/v1/onlinepresences?", "Constituents"},
         {"relationships", RelationshipListType, "constituent/v1/relationships?", "Constituents"},
-        {"constituent_custom_fields", ConstituentCustomFielsListType, "constituent/v1/constituents/customfields?", "Constituents"},
-        {"gifts", GiftListType, "gift/v1/gifts", "Gifts"}
+        {"constituent_custom_fields", ConstituentCustomFieldListType, "constituent/v1/constituents/customfields?", "Constituents"},
+        {"gifts", GiftListType, "gift/v1/gifts?", "Gifts"},
+        {"gift_custom_fields", GiftCustomFieldListType, "gift/v1/gifts/customfields?", "Gifts"},
+        {"appeals", AppealListType, "fundraising/v1/appeals?", "Fundraising"},
+        {"campaigns", CampaignListType, "fundraising/v1/campaigns?", "Fundraising"},
+        {"funds", FundListType, "fundraising/v1/funds?", "Fundraising"},
+        {"opportunities", OpportunityListType, "opportunity/v1/opportunities?", "Opportunity"}
 });
         
 GetSchemaForEntity = (entity as text) as type => try SchemaTable{[Entity=entity]}[Type] otherwise error "Couldn't find entity: '" & entity &"'";
@@ -364,7 +444,9 @@ shared NavigationTable.Nested = () as table =>
         objects = #table(
             {"Name",        "Key",  "Data",                                 "ItemKind", "ItemName", "IsLeaf"},{
             {"Constituents","n1",   SkyApiNavTable(BaseUrl,"Constituents"), "Table",    "Table",    false},
-            {"Gifts",       "n2",   SkyApiNavTable(BaseUrl,"Gifts"),        "Table",    "Table",    false}
+            {"Gifts",       "n2",   SkyApiNavTable(BaseUrl,"Gifts"),        "Table",    "Table",    false},
+            {"Fundraising", "n3",   SkyApiNavTable(BaseUrl,"Fundraising"),  "Table",    "Table",    false},
+            {"Opportunity", "n4",   SkyApiNavTable(BaseUrl,"Opportunity"),  "Table",    "Table",    false}
         }),
         NavTable = Table.ToNavigationTable(objects, {"Key"}, "Name", "Data", "ItemKind", "ItemName", "IsLeaf")
     in
