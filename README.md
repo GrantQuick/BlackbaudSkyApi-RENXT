@@ -36,6 +36,11 @@ Additional endpoints will be added in time. Currently the connector supports:
 * Relationship list
 * Constituent Custom Field list
 * Gift list
+* Gift Custom Field list
+* Appeal list
+* Campaign list
+* Fund list
+* Opportunity list
 
 ## Additional Information
 The connector will only generate a barebones data model. List or record type data fields will have to be expanded when designing your own data model. For example, when connecting to the Gifts endpoint, in Power BI you will need to click **Edit Queries** in order to expand and view the gift amounts.
