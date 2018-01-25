@@ -33,7 +33,7 @@ Additional endpoints will be added in time. Currently the connector supports:
 * Constituent Code list
 * Online Presence list
 * Relationship list
-* Constituent Custom Field list
+ T* Constituent Custom Field list
 * Gift list
 * Gift Custom Field list
 * Appeal list
@@ -67,7 +67,7 @@ As an indicator of expected performance, the connector has been tested with an i
 * 50,000 gifts
 * 100 opportunities
 
-The data load time for all of the above is in the region of **55 minutes**.
+The data load time for all of the above is in the region of **55 minutes**. In this time there were 2,200 calls to the API, which used 370MB of bandwidth.
 
 ## Authors
 * **Grant Quick** - *Initial work* - [GrantQuick](https://github.com/GrantQuick)
