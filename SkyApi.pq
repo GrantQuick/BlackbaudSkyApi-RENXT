@@ -482,13 +482,44 @@ GetEntity = (url as text, entity as text) as table =>
     in
         appliedSchema;
 
+// ----------------------------------------
+// Custom retry duration with Web.Contents thanks to @CurtHagenlocher
+// https://gist.github.com/CurtHagenlocher/68ac18caa0a17667c805
+// ----------------------------------------
+    Value.WaitFor = (producer as function, interval as function, optional count as number) as any =>
+        let
+            list = List.Generate(
+                () => {0, null},
+                (state) => state{0} <> null and (count = null or state{0} < count),
+                (state) => if state{1} <> null
+                    then {null, state{1}}
+                    else {1 + state{0}, Function.InvokeAfter(() => producer(state{0}), interval(state{0}))},
+                (state) => state{1})
+        in
+            List.Last(list);
+
+    Web.ContentsCustomRetry = (url as text, optional options as record) => Value.WaitFor(
+        (i) =>
+            let
+                options2 = if options = null then [] else options,
+                options3 = if i=0 then options2 else options2 & [IsRetry=true],
+                result = Web.Contents(url, options3 & [ManualStatusHandling={429}]),
+                buffered = Binary.Buffer(result), /* avoid risk of double request */
+                status = if buffered = null then 0 else Value.Metadata(result)[Response.Status],
+                actualResult = if status = 429 then null else buffered
+            in
+                actualResult,
+        (i) => #duration(0, 0, 0, i*0.1));
+
+// ----------------------------------------
 
 GetPage = (url as text, optional schema as type) as table =>
     let
-        response = Web.Contents(url, [ Headers = DefaultRequestHeaders ]),        
+        //response = Web.Contents(url, [ Headers = DefaultRequestHeaders]),
+        response = Web.ContentsCustomRetry(url, [ Headers = DefaultRequestHeaders]),
         body = Json.Document(response),
         nextLink = GetNextLink(body),
-        
+
         // If we have no schema, use Table.FromRecords() instead
         // (and hope that our results all have the same fields).
         // If we have a schema, expand the record using its field names
