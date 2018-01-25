@@ -45,5 +45,34 @@ Additional endpoints will be added in time. Currently the connector supports:
 ## Additional Information
 The connector will only generate a barebones data model. List or record type data fields will have to be expanded when designing your own data model. For example, when connecting to the Gifts endpoint, in Power BI you will need to click **Edit Queries** in order to expand and view the gift amounts.
 
+Handling of rate limiting has now been implemented, meaning that the connector should now gracefully wait and retry a call following a 429 error.
+
 ## Known Issues
-As yet, there is no handling of quotas or rate limiting. It is possible that these issues may be encountered during calls to larger datasets. The connector has been tested with a database of around 100,000 records without hitting any rate limiting. The data load for the constituents endpoint on a dataset of this size takes between 5-10 minutes.
+Depending on dataset size, data load time can be long. As a maximum of 500 records can be returned by any single call to an endpoint, datasets of several hundred thousand records will require many hundred calls to the API. The API also employs rate limiting to prevent overload of Blackbaud servers. This can mean that data loads of all endpoints will take several minutes. Connecting to only the required endpoints will reduce data load time.
+
+As an indicator of expected performance, the connector has been tested with an initial concurrent load on all (currently supported) endpoints on a database with the following record counts per endpoint:
+
+* 150,000 addresses
+* 100,000 constituent codes
+* 350,000 constituent custom fields
+* 100,000 constituents
+* 100,000 education
+* 40,000 emails
+* 1,000 online presences
+* 55,000 phones
+* 45,000 relationships
+* 30 appeals
+* 6 campaigns
+* 70 funds
+* 1,000 gift custom fields
+* 50,000 gifts
+* 100 opportunities
+
+The data load time for all of the above is in the region of 55 minutes
+
+## Authors
+* **Grant Quick** - *Iniital work* - [GrantQuick](https://github.com/GrantQuick)
+
+## Acknowledgments
+* This connector is based on the [custom data connector samples](https://github.com/Microsoft/DataConnectors) provided by [Microsoft](https://github.com/Microsoft)
+* Thanks to Microsoft’s [CurtHagenlocher](https://gist.github.com/CurtHagenlocher) for the [Web.ContentsCustomRetry](https://gist.github.com/CurtHagenlocher/68ac18caa0a17667c805) function.
