@@ -33,7 +33,7 @@ Additional endpoints will be added in time. Currently the connector supports:
 * Constituent Code list
 * Online Presence list
 * Relationship list
- T* Constituent Custom Field list
+* Constituent Custom Field list
 * Gift list
 * Gift Custom Field list
 * Appeal list
