@@ -298,6 +298,18 @@ FundListType = type table [
     date_modified = nullable datetimezone
 ];
 
+// Notes List Endpoint
+NotesListType = type table [
+    id = nullable text,
+    constituent_id = nullable text,
+    #"type" = nullable text,
+    date = nullable DateType,
+    summary = nullable text,
+    text = nullable text,
+    date_added = nullable datetimezone,
+    date_modified = nullable datetimezone
+];
+
 // Opportunity List Endpoint
 OpportunityListType = type table [
     id = nullable text,
@@ -424,7 +436,8 @@ SchemaTable = #table({"Entity", "Type", "Endpoint", "Branch"}, {
         {"online_presence", OnlinePresenceListType, "constituent/v1/onlinepresences?", "Constituents"},
         {"relationships", RelationshipListType, "constituent/v1/relationships?", "Constituents"},
         {"constituent_custom_fields", ConstituentCustomFieldListType, "constituent/v1/constituents/customfields?", "Constituents"},
-        {"gifts", GiftListType, "gift/v1/gifts?", "Gifts"},
+        {"notes", NotesListType, "constituent/v1/notes?", "Constituents"},
+        {"gifts", GiftListType, "gift/v1/gifts?Limit=500", "Gifts"},
         {"gift_custom_fields", GiftCustomFieldListType, "gift/v1/gifts/customfields?", "Gifts"},
         {"appeals", AppealListType, "fundraising/v1/appeals?", "Fundraising"},
         {"campaigns", CampaignListType, "fundraising/v1/campaigns?", "Fundraising"},
