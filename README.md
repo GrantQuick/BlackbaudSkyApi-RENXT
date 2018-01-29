@@ -19,9 +19,10 @@ Follow the instructions at https://apidocs.sky.blackbaud.com/docs/createapp/ to 
 3. Rename the SkyApi.mez file to SkyApi.zip
 4. Open up SkyApi.zip. Edit the client_id, client_secret and api_subscription_key files. In each file, copy and paste the character strings for the appropriate entity (the client_id, client_secret and api_subscription_key generated when creating a Blackbaud developer account and app) into the correct file. Save the changes to each of the three files.
 5. Rename SkyApi.zip back to SkyApi.mez.
-4. Enable the **Custom data connectors** preview feature in Power BI Desktop (under *File | Options and settings | Custom data connectors*ti8. Restart Power BI Desktop
-9. In Power BI Desktop, click **Get Data > Other > Blackbaud SkyAPi (Beta)**
-10. The first time you use the connector you will need to log in using your Blackbaud account and authorise the app to work with your data.
+6. Enable the **Custom data connectors** preview feature in Power BI Desktop (under *File | Options and settings | Custom data connectors*). 
+7. Restart Power BI Desktop
+8. In Power BI Desktop, click **Get Data > Other > Blackbaud SkyAPi (Beta)**
+9. The first time you use the connector you will need to log in using your Blackbaud account and authorise the app to work with your data.
 
 ## Supported Endpoints
 Additional endpoints will be added in time. Currently the connector supports:
@@ -40,6 +41,7 @@ Additional endpoints will be added in time. Currently the connector supports:
 * Campaign list
 * Fund list
 * Opportunity list
+* Notes list
 
 ## Additional Information
 The connector will only generate a barebones data model. List or record type data fields will have to be expanded when designing your own data model. For example, when connecting to the Gifts endpoint, in Power BI you will need to click **Edit Queries** in order to expand and view the gift amounts.
