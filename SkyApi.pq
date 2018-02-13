@@ -295,7 +295,8 @@ FundListType = type table [
     inactive = nullable logical,
     goal = nullable ValueType,
     date_added = nullable datetimezone,
-    date_modified = nullable datetimezone
+    date_modified = nullable datetimezone,
+    #"type" = nullable text
 ];
 
 // Notes List Endpoint
