@@ -428,22 +428,22 @@ PaymentType = type [
 
 
 SchemaTable = #table({"Entity", "Type", "Endpoint", "Branch"}, {
-        {"constituents", ConstituentsListType, "constituent/v1/constituents?include_inactive&include_deceased", "Constituents"},
-        {"phones", PhoneListType, "constituent/v1/phones?include_inactive", "Constituents"},
-        {"emails", EmailListType, "constituent/v1/emailaddresses?include_inactive", "Constituents"},
-        {"addresses", AddressListType, "constituent/v1/addresses?include_inactive", "Constituents"},
+        {"constituents", ConstituentsListType, "constituent/v1/constituents?include_inactive=true&include_deceased=true", "Constituents"},
+        {"phones", PhoneListType, "constituent/v1/phones?include_inactive=true", "Constituents"},
+        {"emails", EmailListType, "constituent/v1/emailaddresses?include_inactive=true", "Constituents"},
+        {"addresses", AddressListType, "constituent/v1/addresses?include_inactive=true", "Constituents"},
         {"education", EducationListType, "constituent/v1/educations?", "Constituents"},
-        {"constituent_codes", ConstituentCodeListType, "constituent/v1/constituents/constituentcodes?include_inactive", "Constituents"},
-        {"online_presence", OnlinePresenceListType, "constituent/v1/onlinepresences?include_inactive", "Constituents"},
+        {"constituent_codes", ConstituentCodeListType, "constituent/v1/constituents/constituentcodes?include_inactive=true", "Constituents"},
+        {"online_presence", OnlinePresenceListType, "constituent/v1/onlinepresences?include_inactive=true", "Constituents"},
         {"relationships", RelationshipListType, "constituent/v1/relationships?", "Constituents"},
         {"constituent_custom_fields", ConstituentCustomFieldListType, "constituent/v1/constituents/customfields?", "Constituents"},
         {"notes", NotesListType, "constituent/v1/notes?", "Constituents"},
         {"gifts", GiftListType, "gift/v1/gifts?", "Gifts"},
         {"gift_custom_fields", GiftCustomFieldListType, "gift/v1/gifts/customfields?", "Gifts"},
-        {"appeals", AppealListType, "fundraising/v1/appeals?include_inactive", "Fundraising"},
-        {"campaigns", CampaignListType, "fundraising/v1/campaigns?include_inactive", "Fundraising"},
-        {"funds", FundListType, "fundraising/v1/funds?include_inactive", "Fundraising"},
-        {"opportunities", OpportunityListType, "opportunity/v1/opportunities?include_inactive", "Opportunity"}
+        {"appeals", AppealListType, "fundraising/v1/appeals?include_inactive=true", "Fundraising"},
+        {"campaigns", CampaignListType, "fundraising/v1/campaigns?include_inactive=true=true", "Fundraising"},
+        {"funds", FundListType, "fundraising/v1/funds?include_inactive=true", "Fundraising"},
+        {"opportunities", OpportunityListType, "opportunity/v1/opportunities?include_inactive=true", "Opportunity"}
 });
         
 GetSchemaForEntity = (entity as text) as type => try SchemaTable{[Entity=entity]}[Type] otherwise error "Couldn't find entity: '" & entity &"'";
@@ -517,10 +517,10 @@ GetEntity = (url as text, entity as text) as table =>
             let
                 options2 = if options = null then [] else options,
                 options3 = if i=0 then options2 else options2 & [IsRetry=true],
-                result = Web.Contents(url, options3 & [ManualStatusHandling={429}]),
+                result = Web.Contents(url, options3 & [ManualStatusHandling={429,500}]),
                 buffered = Binary.Buffer(result), /* avoid risk of double request */
                 status = if buffered = null then 0 else Value.Metadata(result)[Response.Status],
-                actualResult = if status = 429 then null else buffered
+                actualResult = if status = 429 or status = 500 then null else buffered
             in
                 actualResult,
         (i) => #duration(0, 0, 0, i*0.1));
