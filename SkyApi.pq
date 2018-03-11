@@ -441,7 +441,7 @@ SchemaTable = #table({"Entity", "Type", "Endpoint", "Branch"}, {
         {"gifts", GiftListType, "gift/v1/gifts?", "Gifts"},
         {"gift_custom_fields", GiftCustomFieldListType, "gift/v1/gifts/customfields?", "Gifts"},
         {"appeals", AppealListType, "fundraising/v1/appeals?include_inactive=true", "Fundraising"},
-        {"campaigns", CampaignListType, "fundraising/v1/campaigns?include_inactive=true=true", "Fundraising"},
+        {"campaigns", CampaignListType, "fundraising/v1/campaigns?include_inactive=true", "Fundraising"},
         {"funds", FundListType, "fundraising/v1/funds?include_inactive=true", "Fundraising"},
         {"opportunities", OpportunityListType, "opportunity/v1/opportunities?include_inactive=true", "Opportunity"}
 });
