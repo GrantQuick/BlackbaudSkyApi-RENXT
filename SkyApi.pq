@@ -334,6 +334,30 @@ OpportunityListType = type table [
     date_modified = nullable datetimezone
 ];
 
+// Action List Endpoint
+ActionListType = type table [
+    id = nullable text,
+    category = nullable text,
+    completed = nullable logical,
+    completed_date = nullable datetime,
+    constituent_id = nullable text,
+    date = nullable datetime,
+    date_added = nullable datetimezone,
+    date_modified = nullable datetimezone,
+    description = nullable text,
+    direction = nullable text,
+    end_time = nullable text,
+    fundraisers = {nullable FundRaiserType},
+    location = nullable text,
+    opportunity_id = nullable text,
+    outcome = nullable text,
+    priority = nullable text,
+    start_time = nullable text,
+    status = nullable text,
+    summary = nullable text,
+    #"type" = nullable text
+];
+
 // ----------------------------------------
 // Remaining structured types
 DateType = type [
@@ -438,6 +462,7 @@ SchemaTable = #table({"Entity", "Type", "Endpoint", "Branch"}, {
         {"relationships", RelationshipListType, "constituent/v1/relationships?", "Constituents"},
         {"constituent_custom_fields", ConstituentCustomFieldListType, "constituent/v1/constituents/customfields?", "Constituents"},
         {"notes", NotesListType, "constituent/v1/notes?", "Constituents"},
+        {"actions", ActionListType, "constituent/v1/actions?", "Constituents"},
         {"gifts", GiftListType, "gift/v1/gifts?", "Gifts"},
         {"gift_custom_fields", GiftCustomFieldListType, "gift/v1/gifts/customfields?", "Gifts"},
         {"appeals", AppealListType, "fundraising/v1/appeals?include_inactive=true", "Fundraising"},
