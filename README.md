@@ -42,14 +42,17 @@ Additional endpoints will be added in time. Currently the connector supports:
 * Fund list
 * Opportunity list
 * Notes list
+* Action list
 
 ## Additional Information
 The connector will only generate a barebones data model. List or record type data fields will have to be expanded when designing your own data model. For example, when connecting to the Gifts endpoint, in Power BI you will need to click **Edit Queries** in order to expand and view the gift amounts.
 
-Handling of rate limiting has now been implemented, meaning that the connector should now gracefully wait and retry a call following a 429 error.
+Handling of rate limiting has now been implemented, meaning that the connector Will now gracefully wait and retry a call following a 429 error.
+
+When using the connector, it is recommended to **only select the endpoints that are necessary for any given reporting purpose**. Endpoints that are not required as part of a specific Power BI dashboard/report should be omitted from your connection as they will introduce superfluous calls to the SKY API, and could cause throttling/quota issues. The Actions endpoint, for example, may be unnecessary for most reporting purposes and may include large a large number of records. If this is the case in your organisation, including the Actions endpoint will result in a significant increase in the time it takes to refresh your data as well as cause a substantial increase in consumed bandwidth.
 
 ## Known Issues
-Depending on dataset size, data load time can be long. As a maximum of 500 records can be returned by any single call to an endpoint, datasets of several hundred thousand records will require many hundred calls to the API. The API also employs rate limiting to prevent overload of Blackbaud servers. This can mean that data loads of all endpoints will take several minutes. Connecting to only the required endpoints will reduce data load time.
+Depending on dataset size, data load time can be long, although Blackbaud have improved the speed of call processing in recent months. As a maximum of 500 records can be returned by any single call to an endpoint, datasets of several hundred thousand records will require many hundred calls to the API. The API also employs rate limiting to prevent overload of Blackbaud servers. This can mean that data loads of all endpoints will take several minutes. Connecting to only the required endpoints will reduce data load time.
 
 As an indicator of expected performance, the connector has been tested with an initial concurrent load on all (currently supported) endpoints on a database with the following record counts per endpoint:
 
@@ -69,7 +72,7 @@ As an indicator of expected performance, the connector has been tested with an i
 * 50,000 gifts
 * 100 opportunities
 
-The data load time for all of the above is in the region of **55 minutes**. In this time there were 2,200 calls to the API, which used 370MB of bandwidth.
+In this time there were 2,200 calls to the API, which used 370MB of bandwidth.
 
 ## Authors
 * **Grant Quick** - *Initial work* - [GrantQuick](https://github.com/GrantQuick)
