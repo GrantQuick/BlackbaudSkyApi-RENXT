@@ -43,11 +43,12 @@ Additional endpoints will be added in time. Currently the connector supports:
 * Opportunity list
 * Notes list
 * Action list
+* Memberships list
 
 ## Additional Information
 The connector will only generate a barebones data model. List or record type data fields will have to be expanded when designing your own data model. For example, when connecting to the Gifts endpoint, in Power BI you will need to click **Edit Queries** in order to expand and view the gift amounts.
 
-Handling of rate limiting has now been implemented, meaning that the connector Will now gracefully wait and retry a call following a 429 error.
+Handling of rate limiting has now been implemented, meaning that the connector will now gracefully wait and retry a call following a 429 error.
 
 When using the connector, it is recommended to **only select the endpoints that are necessary for any given reporting purpose**. Endpoints that are not required as part of a specific Power BI dashboard/report should be omitted from your connection as they will introduce superfluous calls to the SKY API, and could cause throttling/quota issues. The Actions endpoint, for example, may be unnecessary for most reporting purposes and may include large a large number of records. If this is the case in your organisation, including the Actions endpoint will result in a significant increase in the time it takes to refresh your data as well as cause a substantial increase in consumed bandwidth.
 
