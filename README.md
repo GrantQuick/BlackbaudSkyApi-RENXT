@@ -1,5 +1,5 @@
 ## BlackbaudSkyApi
-A Power BI custom data connector for the Blackbaud SKY API
+A Power BI custom data connector for the Blackbaud SKY API. Currently supports Raiser's Edge. Financial Edge support may be added in the future.
 ![PBIGetData](blobs/getdata.png "SKY API in Get Data")
 
 ## Getting Started
@@ -53,6 +53,8 @@ Handling of rate limiting has now been implemented, meaning that the connector w
 When using the connector, it is recommended to **only select the endpoints that are necessary for any given reporting purpose**. Endpoints that are not required as part of a specific Power BI dashboard/report should be omitted from your connection as they will introduce superfluous calls to the SKY API, and could cause throttling/quota issues. The Actions endpoint, for example, may be unnecessary for most reporting purposes and may include large a large number of records. If this is the case in your organisation, including the Actions endpoint will result in a significant increase in the time it takes to refresh your data as well as cause a substantial increase in consumed bandwidth.
 
 ## Known Issues
+Blackbaud have recently added a list endpoint for an optional module, the Membership list. Support for this endpoint has been added to the connector, but limited testing has been performed as this is not a module which is available in my organisation. Issues/feedback on this particular endpoint are welcome. For all organisations that have not opted to purchase this additional module from Blackbaud, if the Memberships endpoint is selected by the user during the Get Data process, Power BI will produce an error stating that *Access to the resource is forbidden* as the connector attempts to preview data. This means that your Blackbaud account does not have access to that specific module. Other endpoints will be unaffected, and can be selected as usual. This will be the case for all optional modules for which Blackbaud subsequently add SKY API support, where that module is not available in your organisation.
+
 Depending on dataset size, data load time can be long, although Blackbaud have improved the speed of call processing in recent months. As a maximum of 500 records can be returned by any single call to an endpoint, datasets of several hundred thousand records will require many hundred calls to the API. The API also employs rate limiting to prevent overload of Blackbaud servers. This can mean that data loads of all endpoints will take several minutes. Connecting to only the required endpoints will reduce data load time.
 
 As an indicator of expected performance, the connector has been tested with an initial concurrent load on all (currently supported) endpoints on a database with the following record counts per endpoint:
