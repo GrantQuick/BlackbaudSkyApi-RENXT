@@ -340,6 +340,7 @@ ActionListType = type table [
     category = nullable text,
     completed = nullable logical,
     completed_date = nullable datetime,
+    computed_status = nullable text,
     constituent_id = nullable text,
     date = nullable datetime,
     date_added = nullable datetimezone,
@@ -356,6 +357,22 @@ ActionListType = type table [
     status = nullable text,
     summary = nullable text,
     #"type" = nullable text
+];
+
+// Membership List Endpoint
+MembershipListType = type table [
+    id = nullable text,
+    category = nullable text,
+    constituent_id = nullable text,
+    date_added = nullable datetimezone,
+    date_modified = nullable datetimezone,
+    dues = nullable number,
+    expires = nullable datetime,
+    joined = nullable datetime,
+    members = {nullable MemberType},
+    program = nullable text,
+    standing = nullable text,
+    subcategory = nullable text
 ];
 
 // ----------------------------------------
@@ -450,6 +467,12 @@ PaymentType = type [
     payment_method = nullable text
 ];
 
+MemberType = type [
+    id = nullable text,
+    constituent_id = nullable text,
+    primary = nullable logical
+];
+
 
 SchemaTable = #table({"Entity", "Type", "Endpoint", "Branch"}, {
         {"constituents", ConstituentsListType, "constituent/v1/constituents?include_inactive=true&include_deceased=true", "Constituents"},
@@ -463,6 +486,7 @@ SchemaTable = #table({"Entity", "Type", "Endpoint", "Branch"}, {
         {"constituent_custom_fields", ConstituentCustomFieldListType, "constituent/v1/constituents/customfields?", "Constituents"},
         {"notes", NotesListType, "constituent/v1/notes?", "Constituents"},
         {"actions", ActionListType, "constituent/v1/actions?", "Constituents"},
+        {"memberships", MembershipListType, "constituent/v1/memberships?", "Constituents"},
         {"gifts", GiftListType, "gift/v1/gifts?", "Gifts"},
         {"gift_custom_fields", GiftCustomFieldListType, "gift/v1/gifts/customfields?", "Gifts"},
         {"appeals", AppealListType, "fundraising/v1/appeals?include_inactive=true", "Fundraising"},
