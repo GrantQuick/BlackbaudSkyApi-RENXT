@@ -9,7 +9,7 @@ section SkyApi;
 client_id = Text.FromBinary(Extension.Contents("client_id"));
 client_secret = Text.FromBinary(Extension.Contents("client_secret"));
 api_subscription_key = Text.FromBinary(Extension.Contents("api_subscription_key"));
-redirect_uri = "http://localhost/5000";
+redirect_uri = "https://oauth.powerbi.com/views/oauthredirect.html";
 token_uri = "https://oauth2.sky.blackbaud.com/token";
 authorize_uri = "https://oauth2.sky.blackbaud.com/authorization";
 logout_uri = "https://login.microsoftonline.com/logout.srf";
@@ -17,6 +17,8 @@ logout_uri = "https://login.microsoftonline.com/logout.srf";
 
 // Data Source Kind description
 SkyApi = [
+    // TestConnection is required to enable the connector through the Gateway
+    TestConnection = (dataSourcePath) => { "SkyApi.Contents" },
     Authentication = [
         OAuth = [
             StartLogin=StartLogin,
