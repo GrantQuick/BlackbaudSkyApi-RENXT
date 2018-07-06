@@ -11,7 +11,7 @@ You will need to create and register an application with SKY API for the purpose
 Follow the instructions at https://apidocs.sky.blackbaud.com/docs/getting-started/ to create a developer account and acquire your **api_subscription key**.
 
 ### Creating an app
-Follow the instructions at https://apidocs.sky.blackbaud.com/docs/createapp/ to register and activate your app. Registering your app will generate a **client_id** and **client_secret** for the app. Ensure that the Redirect URL for the app you create is set to http://localhost/5000
+Follow the instructions at https://apidocs.sky.blackbaud.com/docs/createapp/ to register and activate your app. Registering your app will generate a **client_id** and **client_secret** for the app. Ensure that at least one of the Redirect URLs for the app you create is set to **https://oauth.powerbi.com/views/oauthredirect.html**
 
 ### Installing the connector
 1. If one does not already exist, create a `[My Documents]\Microsoft Power BI Desktop\Custom Connectors` directory
@@ -51,6 +51,14 @@ The connector will only generate a barebones data model. List or record type dat
 Handling of rate limiting has now been implemented, meaning that the connector will now gracefully wait and retry a call following a 429 error.
 
 When using the connector, it is recommended to **only select the endpoints that are necessary for any given reporting purpose**. Endpoints that are not required as part of a specific Power BI dashboard/report should be omitted from your connection as they will introduce superfluous calls to the SKY API, and could cause throttling/quota issues. The Actions endpoint, for example, may be unnecessary for most reporting purposes and may include large a large number of records. If this is the case in your organisation, including the Actions endpoint will result in a significant increase in the time it takes to refresh your data as well as cause a substantial increase in consumed bandwidth.
+
+## Scheduled Refresh - Power BI Service
+The connector now supports scheduled refresh through the Power BI service via a Power BI On-Premises Data Gateway (Personal mode). In order to take advantage of this, the following steps need to be performed:
+
+1. Install the Power BI On-Premises Data Gateway in Personal mode
+2. Enable Custom Connector support in the Gateway - see guide [here](https://github.com/Microsoft/DataConnectors/tree/master/samples/TripPin/9-TestConnection#enabling-custom-connectors-in-the-personal-gateway)
+3. Publish a workbook that uses your connector to PowerBI.com
+4. Configure scheduled refresh - see guide [here](https://github.com/Microsoft/DataConnectors/tree/master/samples/TripPin/9-TestConnection#testing-scheduled-refresh) and follow the instructions from *After publishing, go to PowerBI.com and find the dataset...*
 
 ## Known Issues
 Blackbaud have recently added a list endpoint for an optional module, the Membership list. Support for this endpoint has been added to the connector, but limited testing has been performed as this is not a module which is available in my organisation. Issues/feedback on this particular endpoint are welcome. For all organisations that have not opted to purchase this additional module from Blackbaud, if the Memberships endpoint is selected by the user during the Get Data process, Power BI will produce an error stating that *Access to the resource is forbidden* as the connector attempts to preview data. This means that your Blackbaud account does not have access to that specific module. Other endpoints will be unaffected, and can be selected as usual. This will be the case for all optional modules for which Blackbaud subsequently add SKY API support, where that module is not available in your organisation.
