@@ -1,5 +1,5 @@
 ## BlackbaudSkyApi
-A Power BI custom data connector for the Blackbaud SKY API. Currently supports Raiser's Edge. Financial Edge support may be added in the future.
+A Power BI custom data connector for the Blackbaud SKY API. Currently supports Raiser's Edge. Financial Edge support may be added in the future. The connector is not owned, developed or supported by Blackbaud, and as such is defined by Power BI as an [uncertified connector](https://docs.microsoft.com/en-us/connectors/custom-connectors/submit-certification#certification-criteria).
 ![PBIGetData](blobs/getdata.png "SKY API in Get Data")
 
 ## Getting Started
@@ -11,7 +11,7 @@ You will need to create and register an application with SKY API for the purpose
 Follow the instructions at https://apidocs.sky.blackbaud.com/docs/getting-started/ to create a developer account and acquire your **api_subscription key**.
 
 ### Creating an app
-Follow the instructions at https://apidocs.sky.blackbaud.com/docs/createapp/ to register and activate your app. Registering your app will generate a **client_id** and **client_secret** for the app. Ensure that at least one of the Redirect URLs for the app you create is set to **https://oauth.powerbi.com/views/oauthredirect.html**
+Follow the instructions at https://apidocs.sky.blackbaud.com/docs/createapp/ to register and activate your app. Registering your app will generate a **client_id** and **client_secret** for the app. Ensure that at least one of the Redirect URLs for the app you create is set to https://oauth.powerbi.com/views/oauthredirect.html
 
 ### Installing the connector
 1. If one does not already exist, create a `[My Documents]\Microsoft Power BI Desktop\Custom Connectors` directory
@@ -19,7 +19,8 @@ Follow the instructions at https://apidocs.sky.blackbaud.com/docs/createapp/ to 
 3. Rename the SkyApi.mez file to SkyApi.zip
 4. Open up SkyApi.zip. Edit the client_id, client_secret and api_subscription_key files. In each file, copy and paste the character strings for the appropriate entity (the client_id, client_secret and api_subscription_key generated when creating a Blackbaud developer account and app) into the correct file. Save the changes to each of the three files.
 5. Rename SkyApi.zip back to SkyApi.mez.
-6. Enable the **Custom data connectors** preview feature in Power BI Desktop (under *File | Options and settings | Custom data connectors*). 
+6. Enable the **Custom data connectors** preview feature in Power BI Desktop (under *File | Options and settings | Custom data connectors*).
+7. As of the July 2018 release, Power BI will additionally alert users to change their security settings in order to enable uncertified custom data connectors to be used. To do this, go to *File | Options and settings | Security*, and under **Data Extensions**, enable **(Not Recommended) Allow any extension to load without validation or warning**.
 7. Restart Power BI Desktop
 8. In Power BI Desktop, click **Get Data > Other > Blackbaud SkyAPi (Beta)**
 9. The first time you use the connector you will need to log in using your Blackbaud account and authorise the app to work with your data.
