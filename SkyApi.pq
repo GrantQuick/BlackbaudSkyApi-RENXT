@@ -235,6 +235,7 @@ GiftListType = type table [
     acknowledgements = {nullable StatusType},
     receipts = {nullable ReceiptType},
     #"type" = nullable text,
+    subtype = nullable text,
     constituent_id = nullable text,
     is_anonymous = nullable logical,
     gift_splits = {nullable GiftSplitType},
@@ -290,6 +291,7 @@ CampaignListType = type table [
 // Fund List Endpoint
 FundListType = type table [
     id = nullable text,
+    category = nullable text,
     description = nullable text,
     lookup_id = nullable text,
     start_date = nullable datetime,
