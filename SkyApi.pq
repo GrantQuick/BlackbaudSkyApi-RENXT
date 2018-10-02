@@ -246,7 +246,10 @@ GiftListType = type table [
     gift_status = nullable text,
     batch_number = nullable text,
     date_added = nullable datetimezone,
-    date_modified = nullable datetimezone
+    date_modified = nullable datetimezone,
+    gift_aid_amount = nullable ValueType,
+    gift_aid_qualification_status = nullable text,
+    soft_credits = {nullable SoftCreditType}
 ];
 
 // Gift Custom Field List Endpoint
@@ -477,6 +480,12 @@ MemberType = type [
     primary = nullable logical
 ];
 
+SoftCreditType = type [
+    id = nullable text,
+    amount = nullable ValueType,
+    constituent_id = nullable text,
+    gift_id = nullable text
+];
 
 SchemaTable = #table({"Entity", "Type", "Endpoint", "Branch"}, {
         {"constituents", ConstituentsListType, "constituent/v1/constituents?include_inactive=true&include_deceased=true", "Constituents"},
