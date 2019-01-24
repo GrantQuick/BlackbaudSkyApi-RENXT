@@ -15,7 +15,7 @@ Follow the instructions at https://apidocs.sky.blackbaud.com/docs/createapp/ to 
 
 ### Installing the connector
 1. If one does not already exist, create a `[My Documents]\Microsoft Power BI Desktop\Custom Connectors` directory
-2. Download the SkyApi.mez file from this repo, and place it in the `[My Documents]\Microsoft Power BI Desktop\Custom Connectors` directory.
+2. Download the SkyApi.mez file from this repo, or grab the latest release from the [Releases](https://github.com/GrantQuick/BlackbaudSkyApi/releases) area and extract the contents. Place the SkyApi.mez file in the `[My Documents]\Microsoft Power BI Desktop\Custom Connectors` directory.
 3. Rename the SkyApi.mez file to SkyApi.zip
 4. Open up SkyApi.zip. Edit the client_id, client_secret and api_subscription_key files. In each file, copy and paste the character strings for the appropriate entity (the client_id, client_secret and api_subscription_key generated when creating a Blackbaud developer account and app) into the correct file. Save the changes to each of the three files.
 5. Rename SkyApi.zip back to SkyApi.mez.
