@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2019-06-12
+### Changed
+- In preparation for the release of a distinct connector for FENXT, the BlackbaudSkyApi connector has been renamed to BlackbaudSkyApi-RENXT
+- All references to SkyAPI have been changed to RENXT
+
+## [2.0.2] - 2019-04-02
+### Fixed
+- Bugfix
+
 ## [2.0.1] - 2019-02-14
 ### Fixed
 - Corrected expanded Appeal entity
