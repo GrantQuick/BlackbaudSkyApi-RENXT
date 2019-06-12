@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - In preparation for the release of a distinct connector for FENXT, the BlackbaudSkyApi connector has been renamed to BlackbaudSkyApi-RENXT
 - All references to SkyAPI have been changed to RENXT
+- References to client_id and client_secret changed to application_id and application_secret
 
 ## [2.0.2] - 2019-04-02
 ### Fixed
